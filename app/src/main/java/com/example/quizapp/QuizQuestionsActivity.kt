@@ -16,6 +16,7 @@ class QuizQuestionsActivity : AppCompatActivity(),View.OnClickListener {
     private var mCurrentPosition = 1
     private var mQuestionList: ArrayList<Question>?= null
     var mSelectedOption: Int = 0
+    var mCurrentAnswer:Int= 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_questions)
@@ -109,7 +110,10 @@ class QuizQuestionsActivity : AppCompatActivity(),View.OnClickListener {
                     when{
                         mCurrentPosition <=  mQuestionList!!.size -> {
                             setQuestion()
-                        } else -> Toast.makeText(this, "Quiz erfolgreich beendet!", Toast.LENGTH_SHORT).show()
+                        } else ->{
+                        Toast.makeText(this, "Quiz erfolgreich beendet!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "dein Punkt : $mCurrentAnswer", Toast.LENGTH_SHORT).show()
+                    }
 
                     }
                 }else{
@@ -118,6 +122,9 @@ class QuizQuestionsActivity : AppCompatActivity(),View.OnClickListener {
                     val question = mQuestionList!!.get(mCurrentPosition-1)
                     if(question.correctAnswer != mSelectedOption){
                         answerView(mSelectedOption,R.drawable.wrong_option_border)
+                    }else {
+                        mCurrentAnswer++
+                        Toast.makeText(this, "$mCurrentAnswer", Toast.LENGTH_SHORT).show()
                     }
                         answerView(question.correctAnswer,R.drawable.correct_option_border)
 
